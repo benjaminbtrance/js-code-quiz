@@ -59,6 +59,7 @@ choices.forEach((choice) => {
     if (!acceptingAnswers) {
       return;
     }
+
     acceptingAnswers = false;
     var selectedChoice = event.target;
     // check to see if its choice is being clicked
@@ -66,6 +67,17 @@ choices.forEach((choice) => {
     var selectedAnswer = selectedChoice.dataset['number'];
     // check to see if its choice answer is being clicked
     // console.log(selectedAnswer);
-    getNewQuestion();
+
+    var classToApply = 'incorrect';
+    if (selectedAnswer == currentQuestion.answer) {
+      classToApply = 'correct';
+    }
+
+    selectedChoice.parentElement.classList.add(classToApply);
+
+    setTimeout(() => {
+      selectedChoice.parentElement.classList.remove(classToApply);
+      getNewQuestion();
+    }, 1000);
   });
 });
