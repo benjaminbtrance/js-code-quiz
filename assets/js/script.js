@@ -12,6 +12,8 @@
 
 var question = document.querySelector('#question');
 var choices = Array.from(document.querySelectorAll('.choice-text'));
+var questionCounterElement = document.querySelector('#questionCounter');
+var scoreElement = document.querySelector('#score');
 
 var currentQuestion = {};
 var acceptingAnswers = false;
@@ -39,6 +41,7 @@ function getNewQuestion() {
     return window.location.assign('scores.html');
   }
   questionCounter++;
+  questionCounterElement.innerText = questionCounter + '/' + maxQuestion;
   // get a random question from the availableQuestions array
   var questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
@@ -68,16 +71,26 @@ choices.forEach((choice) => {
     // check to see if its choice answer is being clicked
     // console.log(selectedAnswer);
 
+    // add correct or incorrect class to question element in quiz.css
     var classToApply = 'incorrect';
     if (selectedAnswer == currentQuestion.answer) {
       classToApply = 'correct';
     }
-
+    // add score to the quiz
+    if (classToApply === 'correct') {
+      incrementScore(correctAnswer);
+    }
     selectedChoice.parentElement.classList.add(classToApply);
-
+    // set time to 1 sec to show the correct or incorrect class
+    // and get the next question
     setTimeout(() => {
       selectedChoice.parentElement.classList.remove(classToApply);
       getNewQuestion();
     }, 1000);
   });
 });
+
+function incrementScore(num) {
+  score += num;
+  scoreElement.innerText = score;
+}
