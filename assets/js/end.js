@@ -1,10 +1,19 @@
 var username = document.querySelector('#username');
 var saveScoreeBtn = document.querySelector('#saveScoreBtn');
 var finalScore = document.querySelector('#finalScore');
+var resultText = document.querySelector('#resultText');
 // get the recent score from local storage
 var getMostRecentScore = localStorage.getItem('mostRecentScore');
+// get the time from local storage
+var getTime = localStorage.getItem('time');
 // store high scores into local storage or first time create an empty array
 var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+
+if (getTime == 0) {
+	resultText.innerText = 'Sorry you ran out of time.';
+} else {
+	resultText.innerText = 'Your Score';
+}
 
 finalScore.innerText = getMostRecentScore;
 

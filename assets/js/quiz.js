@@ -22,8 +22,8 @@ var score = 0;
 var questionCounter = 0;
 var availableQuestions = [];
 var correctAnswer = 10;
-var maxQuestion = 5;
-var time = questions.length;
+var maxQuestion = questions.length;
+var time = questions.length * 30;
 var timer;
 
 function startQuiz() {
@@ -34,6 +34,7 @@ function startQuiz() {
 	// make sure the array gets copied
 	//console.log(availableQuestions);
 
+	timeElement.textContent = 'Time: ' + time;
 	// Tim
 	timer = setInterval(function () {
 		time--;
@@ -51,6 +52,7 @@ startQuiz();
 
 function endQuiz() {
 	localStorage.setItem('mostRecentScore', score);
+	localStorage.setItem('time', time);
 	return window.location.assign('end.html');
 }
 
@@ -58,6 +60,8 @@ function getNewQuestion() {
 	if (availableQuestions.length === 0 || questionCounter > maxQuestion) {
 		// set score to local storage
 		localStorage.setItem('mostRecentScore', score);
+		// set time to local storage
+		localStorage.setItem('time', time);
 		// go to the scores page
 		return window.location.assign('end.html');
 	}
