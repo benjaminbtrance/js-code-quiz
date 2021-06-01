@@ -14,6 +14,7 @@ var question = document.querySelector('#question');
 var choices = Array.from(document.querySelectorAll('.choice-text'));
 var questionCounterElement = document.querySelector('#questionCounter');
 var scoreElement = document.querySelector('#score');
+var timeElement = document.querySelector('#timer');
 
 var currentQuestion = {};
 var acceptingAnswers = false;
@@ -22,6 +23,8 @@ var questionCounter = 0;
 var availableQuestions = [];
 var correctAnswer = 10;
 var maxQuestion = 5;
+var time = questions.length;
+var timer;
 
 function startQuiz() {
 	questionCounter = 0;
@@ -30,10 +33,26 @@ function startQuiz() {
 	availableQuestions = [...questions];
 	// make sure the array gets copied
 	//console.log(availableQuestions);
+
+	// Tim
+	timer = setInterval(function () {
+		time--;
+		timeElement.textContent = 'Time: ' + time;
+		if (time === 0) {
+			endQuiz();
+		}
+	}, 1000);
+
 	getNewQuestion();
 }
 
+// Call StartQuiz
 startQuiz();
+
+function endQuiz() {
+	localStorage.setItem('mostRecentScore', score);
+	return window.location.assign('end.html');
+}
 
 function getNewQuestion() {
 	if (availableQuestions.length === 0 || questionCounter > maxQuestion) {

@@ -26,6 +26,11 @@ function saveHighScore(event) {
 	// check to see if highScores gets pushed
 	// console.log(highScores);
 
+	//sorts highScore from highest to lowerst
+	highScores.sort((a, b) => {
+		return b.score - a.score;
+	});
+
 	// stringify high score
 	localStorage.setItem('highScores', JSON.stringify(highScores));
 }
