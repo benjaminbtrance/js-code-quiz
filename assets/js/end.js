@@ -42,4 +42,6 @@ function saveHighScore(event) {
 
 	// stringify high score
 	localStorage.setItem('highScores', JSON.stringify(highScores));
+
+	return window.location.assign('scores.html');
 }
